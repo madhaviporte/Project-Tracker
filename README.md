@@ -1,73 +1,139 @@
-# React + TypeScript + Vite
+# 🚀 Project Tracker UI
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a frontend project management tool built as part of an assignment to test real-world frontend engineering skills like state management, performance optimization, and UI logic.
 
-Currently, two official plugins are available:
+The goal was not just to design a UI, but to build a scalable and efficient system that can handle large datasets, multiple views, and interactive features like drag-and-drop.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## ✨ Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### 🔄 Multiple Views (Same Data)
 
-## Expanding the ESLint configuration
+* **Kanban View**
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+  * Tasks organized into 4 columns: To Do, In Progress, In Review, Done
+  * Each task shows title, assignee initials, priority, and due date
+  * Columns scroll independently
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+* **List View**
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+  * All tasks displayed in a sortable table
+  * Sorting by title, priority, and due date
+  * Inline status update using dropdown
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+* **Timeline View**
+
+  * Tasks visualized across a timeline (Gantt-style)
+  * Bars represent task duration
+  * Today's date is highlighted
+
+---
+
+### 🎯 Custom Drag and Drop
+
+* Built from scratch (no libraries used)
+* Drag tasks between columns
+* Placeholder appears while dragging
+* Smooth snap-back if dropped outside valid area
+* Works on mouse (touch support in progress)
+
+---
+
+### ⚡ Performance (Virtual Scrolling)
+
+* Only visible rows are rendered in List View
+* Handles large datasets (500+ tasks)
+* Smooth scrolling without lag or flickering
+
+---
+
+### 👥 Live Collaboration Simulation
+
+* Simulated users viewing/editing tasks
+* Avatar indicators on active tasks
+* Dynamic "people viewing" count
+
+---
+
+### 🔍 Filters & URL Sync
+
+* Filter by:
+
+  * Status
+  * Priority
+  * Assignee
+  * Date range
+* Filters update instantly
+* State synced with URL (shareable links)
+
+---
+
+### 🧠 Edge Cases Handled
+
+* Empty states for columns and list
+* "Due Today" label
+* Overdue tasks highlight
+* Tasks without start date handled in timeline
+
+---
+
+## 🛠 Tech Stack
+
+* React + TypeScript
+* Tailwind CSS
+* Zustand (for global state management)
+
+---
+
+## ⚙️ Setup Instructions
+
+```bash
+npm install
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 🧩 State Management
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Zustand is used because:
+
+* Lightweight and simple
+* No boilerplate like Redux
+* Easy global state sharing across views
+
+---
+
+## ⚡ Virtual Scrolling Approach
+
+Instead of rendering all rows:
+
+* Only visible rows + buffer are rendered
+* Scroll height is maintained using a spacer div
+* Improves performance significantly for large datasets
+
+---
+
+## 🎯 Drag and Drop Approach
+
+* Used native pointer events
+* Calculated drop zones manually
+* Placeholder added to avoid layout shift
+* Position tracked using mouse coordinates
+
+---
+
+## 📊 Performance
+
+Lighthouse Score: 85+ (Desktop)
+
+---
+
+## 📌 Future Improvements
+
+* Make UI fully responsive
+* Improve touch support for drag-and-drop
+* Add backend for real-time collaboration
+
+---
