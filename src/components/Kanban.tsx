@@ -22,8 +22,8 @@ export default function Kanban({
   users,
 }: Props) {
   return (
-    <div className="w-full overflow-x-auto">
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 min-w-96 lg:min-w-0">
+    <div className="w-full">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {columns.map((col) => {
           const colTasks = tasks.filter((t) => t.status === col.key);
 
@@ -42,9 +42,9 @@ export default function Kanban({
                   )
                 );
               }}
-              className="bg-gray-800 p-4 rounded-xl min-h-56"
+              className="bg-gray-800 p-3 sm:p-4 rounded-xl min-h-56 w-full"
             >
-              <h3 className="font-bold mb-4 text-sm sm:text-base">
+              <h3 className="font-bold mb-4">
                 {col.label} ({colTasks.length})
               </h3>
 
@@ -65,23 +65,19 @@ export default function Kanban({
                     onDragStart={(e) =>
                       e.dataTransfer.setData("taskId", task.id)
                     }
-                    className="bg-gray-100 text-black p-3 mb-3 rounded-xl shadow hover:scale-105 transition text-sm sm:text-base"
+                    className="bg-gray-100 text-black p-3 mb-3 rounded-xl shadow w-full wrap-break-word"
                   >
-                    <h4 className="font-semibold">{task.title}</h4>
+                    <h4 className="font-semibold wrap-break-word">
+                      {task.title}
+                    </h4>
 
-                    <p className="text-xs sm:text-sm">
-                      👤 {task.assignee}
-                    </p>
-
-                    <p className="text-xs sm:text-sm">
-                      ⚡ {task.priority}
-                    </p>
-
-                    <p className="text-xs sm:text-sm">
+                    <p className="text-xs">👤 {task.assignee}</p>
+                    <p className="text-xs">⚡ {task.priority}</p>
+                    <p className="text-xs">
                       📅 {new Date(task.dueDate).toDateString()}
                     </p>
 
-                    {/* USERS */}
+                    {/* Users */}
                     <div className="flex mt-2 -space-x-2">
                       {taskUsers.slice(0, 3).map((u) => (
                         <div
@@ -93,7 +89,7 @@ export default function Kanban({
                       ))}
                     </div>
 
-                    {/* BUTTONS */}
+                    {/* Buttons */}
                     <div className="flex gap-2 mt-2 flex-wrap">
                       <button
                         onClick={(e) => {
@@ -102,7 +98,7 @@ export default function Kanban({
                             prev.filter((t) => t.id !== task.id)
                           );
                         }}
-                        className="text-red-500 text-xs sm:text-sm"
+                        className="text-red-500 text-xs"
                       >
                         Delete
                       </button>
@@ -112,7 +108,7 @@ export default function Kanban({
                           e.stopPropagation();
                           setEditingTask(task);
                         }}
-                        className="text-blue-500 text-xs sm:text-sm"
+                        className="text-blue-500 text-xs"
                       >
                         Edit
                       </button>
